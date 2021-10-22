@@ -7,15 +7,17 @@ def parse_args():
     Parse input arguments
     """
     parser = argparse.ArgumentParser(description='Train a Fast R-CNN network')
-    parser.add_argument('--dataset', dest='dataset',
+    parser.add_argument('--dataset', dest='dataset',####################################################################
                         help='source training dataset',
-                        default='pascal_voc_0712', type=str)
-    parser.add_argument('--dataset_t', dest='dataset_t',
+                        # default='pascal_voc_0712', type=str)
+                        default = 'composite', type = str)
+    parser.add_argument('--dataset_t', dest='dataset_t',####################################################################
                         help='target training dataset',
-                        default='clipart', type=str)
-    parser.add_argument('--net', dest='net',
+                        # default='clipart', type=str)
+                        default = 'real', type = str)
+    parser.add_argument('--net', dest='net',############################################################################
                         help='vgg16, res101 res50',
-                        default='res101', type=str)
+                        default='vgg16', type=str)
     parser.add_argument('--start_epoch', dest='start_epoch',
                         help='starting epoch',
                         default=1, type=int)
@@ -43,7 +45,8 @@ def parse_args():
                         default=6, type=int)
     parser.add_argument('--cuda', dest='cuda',
                         help='whether use CUDA',
-                        action='store_true')
+                        # action='store_true')
+                        default = True,type=bool)
     parser.add_argument('--load_config', dest = 'config_I2I',
                         help = 'name of config file for loading I2I model', default = 'cityscape.yaml',
                         type=str)
@@ -115,9 +118,10 @@ def parse_args():
                         help='checkpoint to load model',
                         default=0, type=int)
     # log and diaplay
-    parser.add_argument('--use_tfb', dest='use_tfboard',
+    parser.add_argument('--use_tfb', dest='use_tfboard',##################################################################
                         help='whether use tensorboard',
-                        action='store_true')
+                        # action='store_true')
+                        default = True,type=bool)
     parser.add_argument('--image_dir', dest='image_dir',
                         help='directory to load images for demo',
                         default="images")
@@ -204,6 +208,15 @@ def set_dataset_args(args, test=False):
         #     args.imdbval_name = "cityscape_kitti_trainval"
         #     args.set_cfgs = ['ANCHOR_SCALES', '[8, 16, 32]', 'ANCHOR_RATIOS', '[0.5,1,2]', 'MAX_NUM_GT_BOXES',
         #                      '30']
+
+        ##############################################
+        # composite
+        elif args.dataset == "composite":########################################################################################
+            args.imdb_name = "composite_2007_trainval"
+            args.imdbval_name = "composite_2007_test"
+            args.set_cfgs = ['ANCHOR_SCALES', '[8, 16, 32]', 'ANCHOR_RATIOS', '[0.5,1,2]', 'MAX_NUM_GT_BOXES', '20']
+
+
         if args.dataset_t == "water":
             args.imdb_name_target = "water_train"
             args.imdbval_name_target = "water_train"
@@ -259,6 +272,11 @@ def set_dataset_args(args, test=False):
             args.imdbval_name_target = "kitti_car_train"
             args.set_cfgs_target = ['ANCHOR_SCALES', '[8, 16, 32]', 'ANCHOR_RATIOS', '[0.5,1,2]', 'MAX_NUM_GT_BOXES', '20']
         ##############################################
+        # real
+        elif args.dataset_t == "real":########################################################################################
+            args.imdb_name_target = "real_2007_trainval"
+            args.imdbval_name_target = "real_2007_test"
+            args.set_cfgs_target = ['ANCHOR_SCALES', '[8, 16, 32]', 'ANCHOR_RATIOS', '[0.5,1,2]', 'MAX_NUM_GT_BOXES','20']
     else:
         if args.dataset == "pascal_voc":
             args.imdb_name = "voc_2007_trainval"
@@ -332,6 +350,15 @@ def set_dataset_args(args, test=False):
             args.imdb_name = "init_cloudy_val"
             args.imdbval_name = "init_cloudy_val"
             args.set_cfgs = ['ANCHOR_SCALES', '[8, 16, 32]', 'ANCHOR_RATIOS', '[0.5,1,2]', 'MAX_NUM_GT_BOXES', '30']
+        ##############################################
+        elif args.dataset == "composite":########################################################################################
+            args.imdb_name = "composite_2007_trainval"
+            args.imdbval_name = "composite_2007_test"
+            args.set_cfgs = ['ANCHOR_SCALES', '[8, 16, 32]', 'ANCHOR_RATIOS', '[0.5,1,2]', 'MAX_NUM_GT_BOXES', '20']
+        elif args.dataset == "real":########################################################################################
+            args.imdb_name = "real_2007_trainval"
+            args.imdbval_name = "real_2007_test"
+            args.set_cfgs = ['ANCHOR_SCALES', '[8, 16, 32]', 'ANCHOR_RATIOS', '[0.5,1,2]', 'MAX_NUM_GT_BOXES','20']
 
 
     args.cfg_file = "cfgs/{}_ls.yml".format(args.net) if args.large_scale else "cfgs/{}.yml".format(args.net)

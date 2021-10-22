@@ -29,6 +29,9 @@ from datasets.init_rainy import init_rainy
 from datasets.init_cloudy import init_cloudy
 from datasets.kitti_car import kitti_car
 
+from datasets.composite import composite
+from datasets.real import real
+
 import numpy as np
 for split in ['train', 'trainval','val','test']:
   name = 'cityscape_{}'.format(split)
@@ -89,6 +92,21 @@ for year in ['2007']:
   for split in ['train', 'test']:
     name = 'water_{}'.format(split)
     __sets[name] = (lambda split=split : water(split,year))
+
+
+##############################################
+for year in ['2007']:
+  for split in ['trainval','test']:########################################################################
+    name = 'composite_{}_{}'.format(year,split)
+    __sets[name] = (lambda split=split, year=year: composite(split, year))
+for year in ['2007']:
+  for split in ['trainval','test']:########################################################################
+    name = 'real_{}_{}'.format(year,split)
+    __sets[name] = (lambda split=split, year=year: real(split, year))
+
+
+
+
 def get_imdb(name):
   """Get an imdb (image database) by name."""
   if name not in __sets:
