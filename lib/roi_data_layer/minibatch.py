@@ -67,6 +67,11 @@ def _get_image_blob(roidb, scale_inds):
     #im = cv2.imread(roidb[i]['image'])
     im = imread(roidb[i]['image'])
 
+    # add for gas_real
+    if len(im.shape) != 2:
+      if im.shape[2]==4:######################
+        im = im[:,:,0:3]
+
     if len(im.shape) == 2:
       im = im[:,:,np.newaxis]
       im = np.concatenate((im,im,im), axis=2)

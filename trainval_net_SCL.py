@@ -39,6 +39,7 @@ if __name__ == '__main__':
     if args.set_cfgs is not None:
         cfg_from_list(args.set_cfgs)
 
+
     print('Using config:')
     pprint.pprint(cfg)
     np.random.seed(cfg.RNG_SEED)
@@ -162,7 +163,9 @@ if __name__ == '__main__':
     if args.use_tfboard:
         from tensorboardX import SummaryWriter
 
-        logger = SummaryWriter("logs")
+        log_save_folder="logs/log_current"
+        os.makedirs(log_save_folder)
+        logger = SummaryWriter(log_save_folder)
     count_iter = 0
     for epoch in range(args.start_epoch, args.max_epochs + 1):
         # setting to train mode

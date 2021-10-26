@@ -21,7 +21,7 @@ __D.PASCALWATER = "./VOC0712"
 
 #########################################################################################################################
 dataset_composite1="composite_gas_6_VOC_500_400"
-dataset_real1="real_annotated_1"
+dataset_real1="real_annotated_1_voc"
 __D.COMPOSITE = os.path.join("data/dataset/composite",dataset_composite1)
 __D.REAL = os.path.join("data/dataset/real",dataset_real1)
 #########################################################################################################################

@@ -150,7 +150,7 @@ if __name__ == '__main__':
   fasterRCNN.eval()
   empty_array = np.transpose(np.array([[],[],[],[],[]]), (1,0))
   for i in range(num_images):
-
+      print("{}/{}".format(i,num_images))
       data = next(data_iter)
       im_data.data.resize_(data[0].size()).copy_(data[0])
       #print(data[0].size())

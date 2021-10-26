@@ -29,7 +29,9 @@ from .voc_eval import voc_eval
 from model.utils.config import cfg
 from .config_dataset import cfg_d
 
-
+iou_thresh=0.5
+print("-"*100)
+print("iou_thresh={}".format(iou_thresh))
 
 try:
     xrange          # Python 2
@@ -42,18 +44,18 @@ class real(imdb):
         imdb.__init__(self, 'real_' + image_set)
         self._year = year
         self._image_set = image_set
-        self._devkit_path = cfg_d.COMPOSITE#self._get_default_path() if devkit_path is None \
+        self._devkit_path = cfg_d.REAL#self._get_default_path() if devkit_path is None \
 #        self._devkit_path = self._get_default_path() if devkit_path is None \
 #            else devkit_path
         self._data_path = self._devkit_path#os.path.join(self._devkit_path, 'clipart')
         self._classes = ('__background__',  # always index 0
-                         'gas')
+                         'smoke')
         self._class_to_ind = dict(zip(self.classes, xrange(self.num_classes)))
         import getpass
         # if 'ksaito' in getpass.getuser():
         #     self._image_ext = ''
         # else:
-        self._image_ext = '.jpg'
+        self._image_ext = '.png'
         self._image_index = self._load_image_set_index()
         # Default to roidb handler
         # self._roidb_handler = self.selective_search_roidb
@@ -351,7 +353,7 @@ class real(imdb):
             os.mkdir(output_dir)
         saved_val = []
         # thresh = [0.05, 0.1, 0.15, 0.2, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95]
-        thresh = [0.5]
+        thresh = [iou_thresh]
         for element in thresh:
             aps = []
             for i, cls in enumerate(self._classes):

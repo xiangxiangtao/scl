@@ -11,13 +11,15 @@ def parse_args():
                         help='source training dataset',
                         # default='pascal_voc_0712', type=str)
                         default = 'composite', type = str)
+                        # default = 'real', type = str) # for test
     parser.add_argument('--dataset_t', dest='dataset_t',####################################################################
                         help='target training dataset',
                         # default='clipart', type=str)
                         default = 'real', type = str)
     parser.add_argument('--net', dest='net',############################################################################
                         help='vgg16, res101 res50',
-                        default='vgg16', type=str)
+                        # default='vgg16', type=str)
+                        default = 'res101', type = str)
     parser.add_argument('--start_epoch', dest='start_epoch',
                         help='starting epoch',
                         default=1, type=int)
@@ -38,7 +40,8 @@ def parse_args():
                         help='directory to save models', default="models",
                         type=str)
     parser.add_argument('--load_name', dest='load_name',
-                        help='path to load models', default="models",
+                        help='path to load models', default=
+                        "models/res101/composite/globallocal_target_real_eta_0.1_gc1_False_gc2_False_gc3_False_gamma_5_session_1_epoch_1_step_9999.pth",
                         type=str)
     parser.add_argument('--nw', dest='num_workers',
                         help='number of worker to load data',
