@@ -72,16 +72,17 @@ if __name__ == '__main__':
 
     # train set
     # -- Note: Use validation set and disable the flipped to enable faster loading.
-    cfg.TRAIN.USE_FLIPPED = True
+    # cfg.TRAIN.USE_FLIPPED = True
     cfg.USE_GPU_NMS = args.cuda
+
     # source dataset
     imdb, roidb, ratio_list, ratio_index = combined_roidb(args.imdb_name)
     train_size = len(roidb)
+    print('{:d} source roidb entries'.format(len(roidb)))
+
     # target dataset
     imdb_t, roidb_t, ratio_list_t, ratio_index_t = combined_roidb(args.imdb_name_target)
     train_size_t = len(roidb_t)
-
-    print('{:d} source roidb entries'.format(len(roidb)))
     print('{:d} target roidb entries'.format(len(roidb_t)))
 
     output_dir = args.save_dir + "/" + args.net + "/" + args.dataset
@@ -186,7 +187,7 @@ if __name__ == '__main__':
     if args.use_tfboard:
         from tensorboardX import SummaryWriter
 
-        logger = SummaryWriter("logs")
+        logger = SummaryWriter("logs/log_current")
     count_iter = 0
     for epoch in range(args.start_epoch, args.max_epochs + 1):
         # setting to train mode

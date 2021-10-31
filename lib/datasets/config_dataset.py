@@ -22,8 +22,11 @@ __D.PASCALWATER = "./VOC0712"
 #########################################################################################################################
 dataset_composite1="composite_gas_6_VOC_500_400"
 dataset_real1="real_annotated_1_voc"
+# dataset_real2="real_annotated_2_voc"
+dataset_real2="real_annotated_2_voc_no_annotation"
 __D.COMPOSITE = os.path.join("data/dataset/composite",dataset_composite1)
-__D.REAL = os.path.join("data/dataset/real",dataset_real1)
+__D.REAL1 = os.path.join("data/dataset/real",dataset_real1)
+__D.REAL2 = os.path.join("data/dataset/real",dataset_real2)
 #########################################################################################################################
 
 #For these datasets, the directories under the path will be Annotations  ImageSets  JPEGImages."

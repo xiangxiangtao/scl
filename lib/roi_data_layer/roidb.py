@@ -130,3 +130,8 @@ def combined_roidb(imdb_names, training=True):
   ratio_list, ratio_index = rank_roidb_ratio(roidb)
 
   return imdb, roidb, ratio_list, ratio_index
+
+
+
+if __name__=="__main__":
+  print(cfg.TRAIN.USE_FLIPPED)

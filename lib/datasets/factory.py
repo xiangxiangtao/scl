@@ -30,7 +30,8 @@ from datasets.init_cloudy import init_cloudy
 from datasets.kitti_car import kitti_car
 
 from datasets.composite import composite
-from datasets.real import real
+from datasets.real1 import real1
+from datasets.real2 import real2
 
 import numpy as np
 for split in ['train', 'trainval','val','test']:
@@ -100,9 +101,13 @@ for year in ['2007']:
     name = 'composite_{}_{}'.format(year,split)
     __sets[name] = (lambda split=split, year=year: composite(split, year))
 for year in ['2007']:
-  for split in ['trainval','test']:########################################################################
-    name = 'real_{}_{}'.format(year,split)
-    __sets[name] = (lambda split=split, year=year: real(split, year))
+  for split in ['trainval','test']:########################################################################real1
+    name = 'real1_{}_{}'.format(year,split)
+    __sets[name] = (lambda split=split, year=year: real1(split, year))
+for year in ['2007']:
+  for split in ['test']:########################################################################real2
+    name = 'real2_{}_{}'.format(year,split)
+    __sets[name] = (lambda split=split, year=year: real2(split, year))
 
 
 
